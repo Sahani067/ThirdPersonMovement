@@ -27,7 +27,6 @@ public class PlayerMovement : MonoBehaviour
     }
     void Update()
     {
-        jumping = Input.GetButtonDown("Jump");
         grounded = Physics.CheckSphere(transform.position, 0.3f, groundlayer);
 
 
