@@ -3,6 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+[RequireComponent(typeof(CharacterController))]
+[RequireComponent(typeof(Animator))]
 public class PlayerMovement : MonoBehaviour
 {
     CharacterController controller;
@@ -37,16 +40,10 @@ public class PlayerMovement : MonoBehaviour
         float vertical = Input.GetAxis("Vertical");
 
         //
-        anim.SetFloat("SpeedX", horizontal, 0.15f, Time.deltaTime);
-        anim.SetFloat("SpeedZ", vertical, 0.15f, Time.deltaTime);
+        anim.SetFloat("SpeedX", horizontal, 0.05f, Time.deltaTime);
+        anim.SetFloat("SpeedZ", vertical, 0.05f, Time.deltaTime);
         //
 
-        // Player Rotation
-        var RotationDir = Cam.transform.rotation;
-        RotationDir.x = 0;
-        RotationDir.z = 0;
-        transform.rotation = RotationDir;
-        //
 
         Vector3 move = transform.right * horizontal + transform.forward * vertical;
         controller.Move(move * PlayerSpeed * Time.deltaTime);
@@ -62,15 +59,21 @@ public class PlayerMovement : MonoBehaviour
         if (grounded)
         {
             anim.SetBool("fall", false);
-            PlayerSpeed = 0f;
-            anim.applyRootMotion = true;
         }
         else
         {
-            anim.CrossFade("fall a loop", 0.1f);
-            PlayerSpeed = 5f;
-            anim.applyRootMotion = false;
+            anim.SetBool("fall", true);
         }
+        //
+    }
+
+    private void LateUpdate()
+    {
+        // Player Rotation
+        var RotationDir = Cam.transform.rotation;
+        RotationDir.x = 0;
+        RotationDir.z = 0;
+        transform.rotation = RotationDir;
         //
     }
 }
