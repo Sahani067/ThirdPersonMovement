@@ -15,7 +15,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] LayerMask groundlayer;
     [SerializeField] float PlayerSpeed = 2f;
     [SerializeField] float JumpForce = 2f;
-    [SerializeField] float gravity = 2f;
+    [SerializeField] float gravity = -9.18f;
     [SerializeField] bool jumping;
     [SerializeField] bool grounded;
 
